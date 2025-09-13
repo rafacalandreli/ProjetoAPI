@@ -101,7 +101,7 @@ router.post('/register', (req, res, next) => {
  *       500:
  *         description: 'Erro interno do servidor'
  */
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     try {
         const { error } = validationSchemas.authSchema.validate(req.body);
         if (error) {
@@ -109,9 +109,15 @@ router.post('/login', (req, res, next) => {
             validationError.statusCode = 400;
             throw validationError;
         }
+
         const { username, password } = req.body;
         const result = authService.login(username, password);
-        res.status(200).json({ message: messages.auth.loginSuccess, user: result.user });
+
+        res.status(200).json({ 
+            message: messages.auth.loginSuccess, 
+            user: result.user 
+        });
+        
     } catch (error) {
         next(error); // Passa o erro para o próximo middleware (errorHandler)
     }

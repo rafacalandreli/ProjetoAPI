@@ -58,7 +58,10 @@ router.post('/transfer', (req, res, next) => {
         const result = transactionService.transfer(senderUsername, receiverUsername, amount);
         res.status(200).json({ message: messages.transaction.transferSuccess });
     } catch (error) {
-        next(error); // Passa o erro para o próximo middleware (errorHandler)
+        // Garante que o statusCode e a mensagem do erro sejam propagados
+        error.statusCode = error.statusCode || 500;
+        error.message = error.message || messages.server.internalServerError;
+        next(error);
     }
 });
 
