@@ -1,0 +1,20 @@
+# Dependências
+node_modules/
+
+# Variáveis de Ambiente
+.env
+
+# Logs
+npm-debug.log*
+*.log
+
+# Arquivos de build
+dist/
+build/
+
+# Cobertura de testes
+coverage/
+
+# IDEs e outros
+.vscode/
+.DS_Store
